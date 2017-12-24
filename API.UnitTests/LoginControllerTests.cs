@@ -9,6 +9,7 @@ namespace API.UnitTests
     public class LoginControllerTests
     {
         private User goodRequest;
+        private User badRequest;
         private LoginController controller;
 
         public LoginControllerTests()
@@ -17,6 +18,12 @@ namespace API.UnitTests
             {
                 Username = "ploy",
                 Password = "Sck1234"
+            };
+
+            badRequest = new User()
+            {
+                Username = "ploy",
+                Password = "qwerty"
             };
 
             controller = new LoginController();
@@ -50,7 +57,20 @@ namespace API.UnitTests
         [Fact]
         public void Post_BadRequest_ReturnsErrorMessage()
         {
+            // Arrange
+            ResponseMessage expectedMessage = new ResponseMessage()
+            {
+                Status = "ERROR",
+                Message = "User not found"
+            };
 
+            // Act
+            ResponseMessage actualResponse = controller.Post(badRequest);
+
+            // Assert
+            Assert.IsType<ResponseMessage>(actualResponse);
+            Assert.Equal(expectedMessage.Status, actualResponse.Status);
+            Assert.Equal(expectedMessage.Message, actualResponse.Message);
         }
     }
 }

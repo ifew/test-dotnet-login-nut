@@ -21,12 +21,10 @@ namespace API.Controllers
             try
             {
                 User user = authenticationService.Login(requestUser.Username, requestUser.Password);
-
-                ResponseMessage response = new ResponseMessage();
-                response.Status = "OK";
-                response.Results = user;
-
-                return response;
+                return new ResponseMessage(){
+                    Status = "OK",
+                    Results = user
+                };
             } catch (UserNotFoundException) {
                 return new ResponseMessage()
                 {
