@@ -8,11 +8,11 @@ namespace API.UnitTests
 {
     public class LoginControllerTests
     {
-        private User successRequest;
+        private User goodRequest;
 
         public LoginControllerTests()
         {
-            successRequest = new User()
+            goodRequest = new User()
             {
                 Username = "ploy",
                 Password = "Sck1234"
@@ -31,7 +31,7 @@ namespace API.UnitTests
             };
 
             // Act
-            var actualUser = controller.Post(successRequest);
+            var actualUser = controller.Post(goodRequest);
 
             // Assert
             Assert.IsType<User>(actualUser);
