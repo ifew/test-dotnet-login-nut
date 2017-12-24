@@ -1,0 +1,47 @@
+{
+	"variables": [],
+	"info": {
+		"name": "dotnet-login",
+		"_postman_id": "aa0bae72-66c9-f880-bda8-1d931efbdefd",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "login-success",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Login Success\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.id).to.eql(1);",
+							"    pm.expect(jsonData.username).to.eql('ploy');",
+							"    pm.expect(jsonData.displayname).to.eql('พลอย');",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:5000/api/login",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\": \"ploy\",\n\t\"password\": \"Sck1234\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
