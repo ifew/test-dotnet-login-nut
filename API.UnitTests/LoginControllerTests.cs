@@ -6,11 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace API.UnitTests
 {
-    public class LoginControllerTest
+    public class LoginControllerTests
     {
         private User successRequest;
 
-        public LoginControllerTest() {
+        public LoginControllerTests() {
             successRequest = new User()
             {
                 Username = "ploy",
