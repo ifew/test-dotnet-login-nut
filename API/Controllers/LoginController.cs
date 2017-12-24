@@ -12,7 +12,7 @@ namespace API.Controllers
     {
         // POST api/login
         [HttpPost]
-        public User Post([FromBody]string value)
+        public User Post([FromBody]User requestUser)
         {
             User ployUser = new User()
             {

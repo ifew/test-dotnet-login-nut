@@ -8,10 +8,18 @@ namespace API.UnitTests
 {
     public class LoginControllerTest
     {
-        const string goodJson = "{ \"username\": \"ploy\", \"password\": \"Sck1234\" }";
+        private User successRequest;
+
+        public LoginControllerTest() {
+            successRequest = new User()
+            {
+                Username = "ploy",
+                Password = "Sck1234"
+            };
+        }
 
         [Fact]
-        public void Post_GoodJson_ReturnsExpectedUser()
+        public void Post_GoodRequest_ReturnsExpectedUser()
         {
             // Arrange
             LoginController controller = new LoginController();
@@ -22,7 +30,7 @@ namespace API.UnitTests
             };
 
             // Act
-            var actualUser = controller.Post(goodJson);
+            var actualUser = controller.Post(successRequest);
 
             // Assert
             Assert.IsType<User>(actualUser);
