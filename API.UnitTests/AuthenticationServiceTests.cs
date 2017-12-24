@@ -2,6 +2,7 @@
 using Xunit;
 using API.Models;
 using API.Services;
+using API.Exceptions;
 
 namespace API.UnitTests
 {
@@ -9,6 +10,7 @@ namespace API.UnitTests
     {
         private User goodUser;
         private AuthenticationService service;
+        private User badUser;
 
         public AuthenticationServiceTests()
         {
@@ -16,6 +18,12 @@ namespace API.UnitTests
             {
                 Username = "ploy",
                 Password = "Sck1234"
+            };
+
+            badUser = new User()
+            {
+                Username = "ploy",
+                Password = "qwerty"
             };
 
             service = new AuthenticationService();
@@ -40,6 +48,25 @@ namespace API.UnitTests
             Assert.Equal(expectedUser.Id, actualUser.Id);
             Assert.Equal(expectedUser.Username, actualUser.Username);
             Assert.Equal(expectedUser.Displayname, actualUser.Displayname);
+        }
+
+        [Fact]
+        public void Login_BadUser_ThrowUserNotFoundException()
+        {
+            try
+            {
+                // Act
+                service.Login(badUser.Username, badUser.Password);
+
+                // Assert
+                Assert.True(false, "ArgumentException was not thrown");
+            }
+            catch (UserNotFoundException)
+            {
+                // Assert
+                Assert.True(true);
+            }
+
         }
     }
 }
