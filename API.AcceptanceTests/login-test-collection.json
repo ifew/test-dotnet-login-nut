@@ -17,9 +17,10 @@
 						"exec": [
 							"pm.test(\"Login Success\", function () {",
 							"    var jsonData = pm.response.json();",
-							"    pm.expect(jsonData.id).to.eql(1);",
-							"    pm.expect(jsonData.username).to.eql('ploy');",
-							"    pm.expect(jsonData.displayname).to.eql('พลอย');",
+							"    pm.expect(jsonData.status).to.eql('OK');",
+							"    pm.expect(jsonData.results.id).to.eql(1);",
+							"    pm.expect(jsonData.results.username).to.eql('ploy');",
+							"    pm.expect(jsonData.results.displayname).to.eql('พลอย');",
 							"});"
 						]
 					}
@@ -38,6 +39,41 @@
 				"body": {
 					"mode": "raw",
 					"raw": "{\n\t\"username\": \"ploy\",\n\t\"password\": \"Sck1234\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "login-fail",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Invalid Username or Password\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.status).to.eql('ERROR');",
+							"    pm.expect(jsonData.message).to.eql('User not found');",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:5000/api/login",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\": \"ploy\",\n\t\"password\": \"qwerty\"\n}"
 				},
 				"description": ""
 			},
