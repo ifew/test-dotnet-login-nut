@@ -8,14 +8,14 @@
 	},
 	"item": [
 		{
-			"name": "login-success",
+			"name": "#1 Login Success",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
 						"type": "text/javascript",
 						"exec": [
-							"pm.test(\"Login Success\", function () {",
+							"pm.test(\"#1 Login Success\", function () {",
 							"    var jsonData = pm.response.json();",
 							"    pm.expect(jsonData.status).to.eql('OK');",
 							"    pm.expect(jsonData.results.id).to.eql(1);",
@@ -45,14 +45,14 @@
 			"response": []
 		},
 		{
-			"name": "login-failed",
+			"name": "#3 Invalid Password",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
 						"type": "text/javascript",
 						"exec": [
-							"pm.test(\"Invalid Username or Password\", function () {",
+							"pm.test(\"#3 Invalid Password\", function () {",
 							"    var jsonData = pm.response.json();",
 							"    pm.expect(jsonData.status).to.eql('ERROR');",
 							"    pm.expect(jsonData.message).to.eql('User not found');",
