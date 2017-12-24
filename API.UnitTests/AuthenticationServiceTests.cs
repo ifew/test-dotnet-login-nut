@@ -7,11 +7,11 @@ namespace API.UnitTests
 {
     public class AuthenticationServiceTests
     {
-        private User successUser;
+        private User goodUser;
 
         public AuthenticationServiceTests()
         {
-            successUser = new User()
+            goodUser = new User()
             {
                 Username = "ploy",
                 Password = "Sck1234"
@@ -31,7 +31,7 @@ namespace API.UnitTests
             };
 
             // Act
-            User actualUser = service.Login(successUser.Username, successUser.Password);
+            User actualUser = service.Login(goodUser.Username, goodUser.Password);
 
             // Assert
             Assert.IsType<User>(actualUser);
