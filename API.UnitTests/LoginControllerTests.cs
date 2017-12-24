@@ -30,7 +30,7 @@ namespace API.UnitTests
         }
 
         [Fact]
-        public void Post_GoodRequest_ReturnsExpectedResponseMessage()
+        public void Post_GoodRequest_ReturnsStatusOKWithResults()
         {
             // Arrange
             User expectedUser = new User(){
@@ -56,7 +56,7 @@ namespace API.UnitTests
         }
 
         [Fact]
-        public void Post_BadRequest_ReturnsErrorMessage()
+        public void Post_BadRequest_ReturnsStatusErrorWithMessage()
         {
             // Arrange
             ResponseMessage expectedResponseMessage = new ResponseMessage()
