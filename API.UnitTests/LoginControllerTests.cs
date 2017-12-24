@@ -23,7 +23,7 @@ namespace API.UnitTests
         }
 
         [Fact]
-        public void Post_GoodRequest_ReturnsExpectedUser()
+        public void Post_GoodRequest_ReturnsExpectedResponseMessage()
         {
             // Arrange
             User expectedUser = new User(){
@@ -31,15 +31,26 @@ namespace API.UnitTests
                 Username = "ploy",
                 Displayname = "พลอย"
             };
+            ResponseMessage expectedResponse = new ResponseMessage();
+            expectedResponse.Status = "OK";
+            expectedResponse.Results = expectedUser;
 
             // Act
-            var actualUser = controller.Post(goodRequest);
+            ResponseMessage actualResponse = controller.Post(goodRequest);
+            User actualUser = actualResponse.Results;
 
             // Assert
+            Assert.IsType<ResponseMessage>(actualResponse);
             Assert.IsType<User>(actualUser);
             Assert.Equal(expectedUser.Id, actualUser.Id);
             Assert.Equal(expectedUser.Username, actualUser.Username);
             Assert.Equal(expectedUser.Displayname, actualUser.Displayname);
+        }
+
+        [Fact]
+        public void Post_BadRequest_ReturnsErrorMessage()
+        {
+
         }
     }
 }
