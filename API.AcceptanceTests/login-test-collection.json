@@ -45,7 +45,7 @@
 			"response": []
 		},
 		{
-			"name": "login-fail",
+			"name": "login-failed",
 			"event": [
 				{
 					"listen": "test",

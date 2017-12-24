@@ -1,5 +1,5 @@
 ﻿# Acceptance Test
-Case | Username | Password | Expected Result
+Case Name | Username | Password | Expected Result
 --- | --- | --- | ---
 Login Success | "ploy" | "Sck1234" | `{"status": "OK", "results": {"id": 1, "username": "ploy", "displayname": "พลอย"}}`
 Login Failed | "ploy" | "qwerty" | `{status: "ERROR", "message": "User not found"}`
