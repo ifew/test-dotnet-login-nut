@@ -9,6 +9,7 @@ namespace API.UnitTests
     public class LoginControllerTests
     {
         private User goodRequest;
+        private LoginController controller;
 
         public LoginControllerTests()
         {
@@ -17,13 +18,14 @@ namespace API.UnitTests
                 Username = "ploy",
                 Password = "Sck1234"
             };
+
+            controller = new LoginController();
         }
 
         [Fact]
         public void Post_GoodRequest_ReturnsExpectedUser()
         {
             // Arrange
-            LoginController controller = new LoginController();
             User expectedUser = new User(){
                 Id = 1,
                 Username = "ploy",
