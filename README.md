@@ -26,3 +26,8 @@ newman run API.AcceptanceTests/login-test-collection.json
 ```sh
 dotnet test API.UnitTests/API.UnitTests.csproj
 ```
+
+# Run Integration Test
+```sh
+dotnet test API.IntegrationTests/API.IntegrationTests.csproj
+```
