@@ -8,6 +8,14 @@ Require Password | "ploy" | "" | `{status: "ERROR", "message": "Username and Pas
 Require Username and Password | "" | "" | `{status: "ERROR", "message": "Username and Password are required"}`
 
 # Run Acceptance Test
+Must start the API before run acceptance test by newman
+
+## Start API
+```sh
+dotnet run --project API
+```
+
+## Run Newman
 ```sh
 newman run API.AcceptanceTests/login-test-collection.json
 ```
