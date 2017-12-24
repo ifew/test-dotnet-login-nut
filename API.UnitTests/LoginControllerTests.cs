@@ -38,9 +38,9 @@ namespace API.UnitTests
                 Username = "ploy",
                 Displayname = "พลอย"
             };
-            ResponseMessage expectedResponse = new ResponseMessage();
-            expectedResponse.Status = "OK";
-            expectedResponse.Results = expectedUser;
+            ResponseMessage expectedResponseMessage = new ResponseMessage();
+            expectedResponseMessage.Status = "OK";
+            expectedResponseMessage.Results = expectedUser;
 
             // Act
             ResponseMessage actualResponse = controller.Post(goodRequest);
@@ -48,6 +48,7 @@ namespace API.UnitTests
 
             // Assert
             Assert.IsType<ResponseMessage>(actualResponse);
+            Assert.Equal(expectedResponseMessage.Status, actualResponse.Status);
             Assert.IsType<User>(actualUser);
             Assert.Equal(expectedUser.Id, actualUser.Id);
             Assert.Equal(expectedUser.Username, actualUser.Username);
@@ -58,7 +59,7 @@ namespace API.UnitTests
         public void Post_BadRequest_ReturnsErrorMessage()
         {
             // Arrange
-            ResponseMessage expectedMessage = new ResponseMessage()
+            ResponseMessage expectedResponseMessage = new ResponseMessage()
             {
                 Status = "ERROR",
                 Message = "User not found"
@@ -69,8 +70,8 @@ namespace API.UnitTests
 
             // Assert
             Assert.IsType<ResponseMessage>(actualResponse);
-            Assert.Equal(expectedMessage.Status, actualResponse.Status);
-            Assert.Equal(expectedMessage.Message, actualResponse.Message);
+            Assert.Equal(expectedResponseMessage.Status, actualResponse.Status);
+            Assert.Equal(expectedResponseMessage.Message, actualResponse.Message);
         }
     }
 }
