@@ -21,3 +21,8 @@ dotnet run --project API
 ```sh
 newman run API.AcceptanceTests/login-test-collection.json
 ```
+
+# Run Unit Test
+```sh
+dotnet test API.UnitTests/API.UnitTests.csproj
+```
