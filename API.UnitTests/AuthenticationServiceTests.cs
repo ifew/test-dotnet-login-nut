@@ -8,6 +8,7 @@ namespace API.UnitTests
     public class AuthenticationServiceTests
     {
         private User goodUser;
+        private AuthenticationService service;
 
         public AuthenticationServiceTests()
         {
@@ -16,13 +17,14 @@ namespace API.UnitTests
                 Username = "ploy",
                 Password = "Sck1234"
             };
+
+            service = new AuthenticationService();
         }
 
         [Fact]
         public void Login_SuccessUser_ReturnsExpectedUser()
         {
             // Arrange
-            AuthenticationService service = new AuthenticationService();
             User expectedUser = new User()
             {
                 Id = 1,
