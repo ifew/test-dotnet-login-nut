@@ -26,8 +26,11 @@ namespace API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //services.AddDbContext<UserContext>(options => options.UseSqlite("Data Source=./Databases/wallet.db"));
+            services.AddDbContext<UserContext>(
+                optionsBuilder => optionsBuilder.UseInMemoryDatabase("InMemoryDb")
+            );
             services.AddMvc();
-            services.AddDbContext<UserContext>(options => options.UseSqlite("Data Source=./Databases/wallet.db"));
             services.AddScoped<IAuthenticationService, AuthenticationService>();
         }
 
@@ -37,6 +40,13 @@ namespace API
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+
+                using (var serviceScope = app.ApplicationServices.CreateScope())
+                {
+                    var dbContext = serviceScope.ServiceProvider.GetService<UserContext>();
+                    dbContext.Users.Add(new User { Username = "ploy", Password = "Sck1234", Displayname = "พลอย" });
+                    dbContext.SaveChanges();
+                }
             }
 
             app.UseMvc();
