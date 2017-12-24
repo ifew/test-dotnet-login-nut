@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Dynamic;
+using API.Models;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -12,12 +12,14 @@ namespace API.Controllers
     {
         // POST api/login
         [HttpPost]
-        public ExpandoObject Post([FromBody]string value)
+        public User Post([FromBody]string value)
         {
-            dynamic ployUser = new ExpandoObject();
-            ployUser.id = 1;
-            ployUser.username = "ploy";
-            ployUser.displayname = "พลอย";
+            User ployUser = new User()
+            {
+                Id = 1,
+                Username = "ploy",
+                Displayname = "พลอย"
+            };
             return ployUser;
         }
     }
