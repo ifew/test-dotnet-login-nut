@@ -15,7 +15,4 @@
   <ItemGroup>
     <ProjectReference Include="..\API\API.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <Compile Remove="AuthenticationServiceTests.cs" />
-  </ItemGroup>
 </Project>
