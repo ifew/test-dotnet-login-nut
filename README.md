@@ -6,3 +6,8 @@ Login Failed | "ploy" | "qwerty" | `{status: "ERROR", "message": "User not found
 Require Username | "" | "qwerty" | `{status: "ERROR", "message": "Username and Password are required"}`
 Require Password | "ploy" | "" | `{status: "ERROR", "message": "Username and Password are required"}`
 Require Username and Password | "" | "" | `{status: "ERROR", "message": "Username and Password are required"}`
+
+# Run Acceptance Test
+```sh
+newman run API.AcceptanceTests/login-test-collection.json
+```
