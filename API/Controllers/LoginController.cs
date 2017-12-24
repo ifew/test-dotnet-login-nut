@@ -12,12 +12,17 @@ namespace API.Controllers
     [Route("api/[controller]")]
     public class LoginController : Controller
     {
+        private readonly IAuthenticationService authenticationService;
+
+        public LoginController(IAuthenticationService service)
+        {
+            authenticationService = service;
+        }
+
         // POST api/login
         [HttpPost]
         public ResponseMessage Post([FromBody]User requestUser)
         {
-            AuthenticationService authenticationService = new AuthenticationService();
-
             try
             {
                 User user = authenticationService.Login(requestUser.Username, requestUser.Password);

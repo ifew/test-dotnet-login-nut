@@ -3,6 +3,7 @@ using Xunit;
 using API.Controllers;
 using API.Models;
 using Microsoft.AspNetCore.Mvc;
+using API.Services;
 
 namespace API.UnitTests
 {
@@ -10,7 +11,6 @@ namespace API.UnitTests
     {
         private User goodRequest;
         private User badRequest;
-        private LoginController controller;
 
         public LoginControllerTests()
         {
@@ -25,8 +25,6 @@ namespace API.UnitTests
                 Username = "ploy",
                 Password = "qwerty"
             };
-
-            controller = new LoginController();
         }
 
         [Fact]
@@ -41,6 +39,9 @@ namespace API.UnitTests
             ResponseMessage expectedResponseMessage = new ResponseMessage();
             expectedResponseMessage.Status = "OK";
             expectedResponseMessage.Results = expectedUser;
+
+            StubSuccessAuthenticationService service = new StubSuccessAuthenticationService();
+            LoginController controller = new LoginController(service);
 
             // Act
             ResponseMessage actualResponse = controller.Post(goodRequest);
@@ -64,6 +65,9 @@ namespace API.UnitTests
                 Status = "ERROR",
                 Message = "User not found"
             };
+
+            StubFailAuthenticationService service = new StubFailAuthenticationService();
+            LoginController controller = new LoginController(service);
 
             // Act
             ResponseMessage actualResponse = controller.Post(badRequest);
