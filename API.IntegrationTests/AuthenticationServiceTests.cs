@@ -1,4 +1,5 @@
 using System;
+using API.Exceptions;
 using API.Models;
 using API.Services;
 using Microsoft.EntityFrameworkCore;
@@ -10,7 +11,6 @@ namespace API.IntegrationTests
     {
         private User goodUser;
         private User badUser;
-        IAuthenticationService service;
 
         public AuthenticationServiceTests()
         {
@@ -25,17 +25,7 @@ namespace API.IntegrationTests
                 Username = "ploy",
                 Password = "qwerty"
             };
-
-            var options = new DbContextOptionsBuilder<UserContext>()
-                .UseInMemoryDatabase(databaseName: "wallet")
-                .Options;
-            UserContext context = new UserContext(options);
-            context.Users.Add(new User { Username = "ploy", Password = "Sck1234", Displayname = "พลอย" });
-            context.SaveChanges();
-
-            service = new AuthenticationService(context);
         }
-
 
         [Fact]
         public void Login_GoodUser_ReturnsExpectedUser()
@@ -48,14 +38,52 @@ namespace API.IntegrationTests
                 Displayname = "พลอย"
             };
 
-            // Act
-            User actualUser = service.Login(goodUser.Username, goodUser.Password);
+            // Context
+            var options = new DbContextOptionsBuilder<UserContext>()
+                .UseInMemoryDatabase(databaseName: "wallet")
+                .Options;
+            using (var context = new UserContext(options))
+            {
+                context.Users.Add(new User { Username = "ploy", Password = "Sck1234", Displayname = "พลอย" });
+                context.SaveChanges();
+                IAuthenticationService service = new AuthenticationService(context);
 
-            // Assert
-            Assert.IsType<User>(actualUser);
-            Assert.Equal(expectedUser.Id, actualUser.Id);
-            Assert.Equal(expectedUser.Username, actualUser.Username);
-            Assert.Equal(expectedUser.Displayname, actualUser.Displayname);
+                // Act
+                User actualUser = service.Login(goodUser.Username, goodUser.Password);
+
+                // Assert
+                Assert.IsType<User>(actualUser);
+                Assert.Equal(expectedUser.Id, actualUser.Id);
+                Assert.Equal(expectedUser.Username, actualUser.Username);
+                Assert.Equal(expectedUser.Displayname, actualUser.Displayname);
+            }
+        }
+
+        [Fact]
+        public void Login_BadUser_ThrowUserNotFoundException()
+        {
+            try
+            {
+                // Context
+                var options = new DbContextOptionsBuilder<UserContext>()
+                    .UseInMemoryDatabase(databaseName: "wallet")
+                    .Options;
+                using (var context = new UserContext(options))
+                {
+                    IAuthenticationService service = new AuthenticationService(context);
+
+                    // Act
+                    service.Login(badUser.Username, badUser.Password);
+
+                    // Assert
+                    Assert.True(false, "UserNotFoundException was not thrown");
+                }
+            }
+            catch (UserNotFoundException)
+            {
+                // Assert
+                Assert.True(true);
+            }
         }
     }
 }
