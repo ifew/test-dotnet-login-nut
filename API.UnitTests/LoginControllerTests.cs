@@ -10,7 +10,8 @@ namespace API.UnitTests
     {
         private User successRequest;
 
-        public LoginControllerTests() {
+        public LoginControllerTests()
+        {
             successRequest = new User()
             {
                 Username = "ploy",
